@@ -35,7 +35,7 @@ public class ClienteService {
 
     public void deletarCliente(Long clienteId){
         Cliente cliente = clienteRepository.findById(clienteId)
-                .orElseThrow(() -> new RuntimeException("Cliente não localizado");
+                .orElseThrow(() -> new RuntimeException("Cliente não localizado"));
 
         clienteRepository.delete(cliente);
     }
