@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_transacao")
-public class transacao {
+public class Transacao {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -19,10 +19,10 @@ public class transacao {
     private String tipoTransacao;
     private BigDecimal valor;
 
-    public transacao() {
+    public Transacao() {
     }
 
-    public transacao(Long id, ContaBancaria contaBancaria, LocalDateTime dataTransacao, String tipoTransacao, BigDecimal valor) {
+    public Transacao(Long id, ContaBancaria contaBancaria, LocalDateTime dataTransacao, String tipoTransacao, BigDecimal valor) {
         this.id = id;
         this.contaBancaria = contaBancaria;
         this.dataTransacao = dataTransacao;
@@ -73,7 +73,7 @@ public class transacao {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof transacao transacao)) return false;
+        if (!(o instanceof Transacao transacao)) return false;
         return getId().equals(transacao.getId());
     }
 
