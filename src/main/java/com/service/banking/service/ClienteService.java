@@ -26,7 +26,7 @@ public class ClienteService {
         .orElseThrow(() -> new RuntimeException("Cliente não encontrado " + clienteId));
     clienteExistente.setNome(novoCliente.getNome());
     clienteExistente.setSobreNome(novoCliente.getSobreNome());
-    clienteExistente.setEnderecoDTO(novoCliente.getEnderecoDTO());
+    clienteExistente.setEndereco(novoCliente.getEndereco());
     clienteExistente.setEmail(novoCliente.getEmail());
     clienteExistente.setTelefone(novoCliente.getTelefone());
 

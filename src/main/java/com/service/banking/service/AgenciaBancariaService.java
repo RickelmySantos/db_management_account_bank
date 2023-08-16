@@ -19,7 +19,7 @@ public class AgenciaBancariaService {
         if(agenciaBancaria.getNomeAgencia() == null){
             throw new IllegalArgumentException("Nome da agência é obrigatório!");
         }
-        if (agenciaBancaria.getEnderecoDTO() == null){
+        if (agenciaBancaria.getEndereco() == null){
             throw new IllegalArgumentException("endereço da agência é obrigatório!");
         }
         return agenciaBancariaRepository.save(agenciaBancaria);
@@ -37,7 +37,7 @@ public class AgenciaBancariaService {
         AgenciaBancaria agenciaExistente = agenciaBancariaRepository.getReferenceById(agenciaId);
 
         agenciaExistente.setNomeAgencia(novaAgencia.getNomeAgencia());
-        agenciaExistente.setEnderecoDTO(novaAgencia.getEnderecoDTO());
+        agenciaExistente.setEndereco(novaAgencia.getEndereco());
 
         return agenciaBancariaRepository.save(agenciaExistente);
     }

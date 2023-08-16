@@ -1,33 +1,59 @@
 package com.service.banking.controller;
 
 
+import com.service.banking.entities.AgenciaBancaria;
 import com.service.banking.entities.ContaBancaria;
+import com.service.banking.entities.Transacao;
 import com.service.banking.service.ContaBancariaService;
+import com.service.banking.service.TransacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-    @RequestMapping("/contas")
+    @RequestMapping("/api/contas")
     public class ContaController {
         private final ContaBancariaService contaService;
+        private final TransacaoService transacaoService;
 
         @Autowired
-        public ContaController(ContaBancariaService contaService) {
+        public ContaController(ContaBancariaService contaService, TransacaoService transacaoService) {
             this.contaService = contaService;
+            this.transacaoService = transacaoService;
         }
-
         @PostMapping
-        public ResponseEntity<String> criarConta(@RequestBody ContaBancaria conta) {
-            try {
-                ContaBancaria novaConta = contaService.criarConta(conta);
-                return ResponseEntity.ok("Conta bancária criada com sucesso. ID: " + novaConta.getId());
-            } catch (RuntimeException e) {
-                return ResponseEntity.badRequest().body(e.getMessage());
-            }
+    public ResponseEntity<?> criarConta(@RequestBody ContaBancaria novaConta) {
+        try {
+            ContaBancaria bancaria = contaService.criarConta(novaConta);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Conta criada com sucesso!");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
+    }
+
+    @PostMapping("/{contaId}/deposito")
+    public ResponseEntity<String> realizarDeposito(@PathVariable Long contaId, @RequestParam BigDecimal valor) {
+        try {
+            Transacao transacao = transacaoService.realizarDeposito(contaId, valor);
+            return ResponseEntity.ok("Depósito realizado com sucesso. ID da transação: " + transacao.getId());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/{contaId}/saque")
+    public ResponseEntity<String> realizarSaque(@PathVariable Long contaId, @RequestParam BigDecimal valor) {
+        try {
+            Transacao transacao = transacaoService.realizarSaque(contaId, valor);
+            return ResponseEntity.ok("Saque realizado com sucesso. ID da transação: " + transacao.getId());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
         @GetMapping("/{contaId}")
         public ResponseEntity<ContaBancaria> buscarContaPorId(@PathVariable Long contaId) {

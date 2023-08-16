@@ -1,6 +1,5 @@
 package com.service.banking.entities;
 
-import com.service.banking.dto.EnderecoDTO;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -12,15 +11,15 @@ public class AgenciaBancaria {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nomeAgencia;
-    private EnderecoDTO enderecoDTO;
+    private String endereco;
 
     public AgenciaBancaria() {
     }
 
-    public AgenciaBancaria(Long id, String nomeAgencia, EnderecoDTO enderecoDTO) {
+    public AgenciaBancaria(Long id, String nomeAgencia, String endereco) {
         this.id = id;
         this.nomeAgencia = nomeAgencia;
-        this.enderecoDTO = enderecoDTO;
+        this.endereco = endereco;
     }
 
     public Long getId() {
@@ -39,12 +38,12 @@ public class AgenciaBancaria {
         this.nomeAgencia = nomeAgencia;
     }
 
-    public EnderecoDTO getEnderecoDTO() {
-        return enderecoDTO;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setEnderecoDTO(EnderecoDTO enderecoDTO) {
-        this.enderecoDTO = enderecoDTO;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     @Override

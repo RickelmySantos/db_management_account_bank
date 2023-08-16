@@ -1,9 +1,6 @@
 package com.service.banking.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -12,6 +9,8 @@ import java.util.Objects;
 @Table(name = "tb_conta")
 public class ContaBancaria {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "id_cliente")

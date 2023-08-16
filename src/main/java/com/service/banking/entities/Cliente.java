@@ -1,6 +1,5 @@
 package com.service.banking.entities;
 
-import com.service.banking.dto.EnderecoDTO;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -13,18 +12,18 @@ public class Cliente {
     private Long id;
     private String nome;
     private String sobreNome;
-    private EnderecoDTO enderecoDTO;
+    private String endereco;
     private String email;
     private String telefone;
 
     public Cliente() {
     }
 
-    public Cliente(Long id, String nome, String sobreNome, EnderecoDTO enderecoDTO, String email, String telefone) {
+    public Cliente(Long id, String nome, String sobreNome, String endereco, String email, String telefone) {
         this.id = id;
         this.nome = nome;
         this.sobreNome = sobreNome;
-        this.enderecoDTO = enderecoDTO;
+        this.endereco = endereco;
         this.email = email;
         this.telefone = telefone;
     }
@@ -53,12 +52,12 @@ public class Cliente {
         this.sobreNome = sobreNome;
     }
 
-    public EnderecoDTO getEnderecoDTO() {
-        return enderecoDTO;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setEnderecoDTO(EnderecoDTO enderecoDTO) {
-        this.enderecoDTO = enderecoDTO;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public String getEmail() {
