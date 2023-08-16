@@ -23,22 +23,13 @@ public class ClienteController {
     }
 
     @PutMapping
-    public ResponseEntity<?> atualizarCleinte(@PathVariable Long clienteId, @RequestBody Cliente novoCliente) {
-        try {
+    public ResponseEntity<?> atualizarCliente(@PathVariable Long clienteId, @RequestBody Cliente novoCliente) {
             Cliente clienteAtualizado = clienteService.atualizarCliente(clienteId, novoCliente);
             return ResponseEntity.status(HttpStatus.CREATED).body("Cliente atualizado com sucesso!");
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
     }
     @DeleteMapping("/{clienteId}")
     public ResponseEntity<?> deletarCliente(@PathVariable Long clienteId) {
-        try {
-
             clienteService.deletarCliente(clienteId);
             return ResponseEntity.status(HttpStatus.CREATED).body("Cliente deletado!");
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
     }
 }

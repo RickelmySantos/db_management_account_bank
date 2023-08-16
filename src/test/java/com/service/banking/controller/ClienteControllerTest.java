@@ -59,14 +59,39 @@ public class ClienteControllerTest {
 
         // Verifica que o método do clienteService foi chamado uma vez
         Mockito.verify(clienteService,Mockito.times(1)).criarCliente(cliente);
+    }
+    @Test
+    public void deveAtualizarUmCliente(){
+        Long clienteId = 2L;
+        Cliente clienteAtualizado = new Cliente();
 
+        Mockito.when(clienteService.atualizarCliente(Mockito.eq(clienteId),Mockito.any())).thenReturn(clienteAtualizado);
+
+        ResponseEntity responseEntity = clienteController.atualizarCliente(clienteId,new Cliente());
+
+        assertEquals(HttpStatus.CREATED,responseEntity.getStatusCode());
+        assertEquals("Cliente atualizado com sucesso!",responseEntity.getBody());
     }
 
+    @Test
+    public void deveLancarExcecaoAoAtualizarClienteInexistente() {
+        Long clienteId = 1L;
+        Mockito.when(clienteService.atualizarCliente(Mockito.eq(clienteId), Mockito.any()))
+                .thenThrow(new RuntimeException("Cliente não encontrado"));
 
+        assertThrows(RuntimeException.class, () -> clienteController.atualizarCliente(clienteId, new Cliente()));
+    }
 
+    @Test
+    public void deveDeletarUmCliente(){
+        Long clienteId= 1L;
+        Mockito.doNothing().when(clienteService).deletarCliente(Mockito.eq(clienteId));
 
+        ResponseEntity<?> responseEntity = clienteController.deletarCliente(clienteId);
 
-
+        assertEquals(HttpStatus.CREATED,responseEntity.getStatusCode());
+        assertEquals("Cliente deletado!",responseEntity.getBody());
+    }
 
 }
 
