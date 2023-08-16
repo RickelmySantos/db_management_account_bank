@@ -1,5 +1,6 @@
 package com.service.banking.entities;
 
+import com.service.banking.enuns.TipoTransacao;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -19,7 +20,7 @@ public class Transacao {
     private String tipoTransacao;
     private BigDecimal valor;
 
-    public Transacao() {
+    public Transacao(TipoTransacao deposito, BigDecimal valor, ContaBancaria conta) {
     }
 
     public Transacao(Long id, ContaBancaria contaBancaria, LocalDateTime dataTransacao, String tipoTransacao, BigDecimal valor) {
