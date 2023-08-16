@@ -2,6 +2,7 @@ package com.service.banking.controller;
 
 import com.service.banking.entities.Cliente;
 import com.service.banking.service.ClienteService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class ClienteControllerTest {
@@ -42,6 +44,27 @@ public class ClienteControllerTest {
         assertEquals("Cliente criado com sucesso", responseEntity.getBody());
 
     }
+    @Test
+    public void deveLancarExcecaoParaNomeEmBranco(){
+        //Criando um cliente com nome em branco
+        Cliente cliente = new Cliente();
+        cliente.setNome("");
+
+        // Configura o comportamento do clienteService para lançar uma exceção
+        Mockito.when(clienteService.criarCliente(cliente))
+                .thenThrow(new RuntimeException("campo nome não pode está em branco!"));
+
+        // Tenta criar o cliente, o método deve lançar a exceção configurad
+       Assertions.assertThrows(RuntimeException.class, () -> clienteController.criarCliente(cliente));
+
+        // Verifica que o método do clienteService foi chamado uma vez
+        Mockito.verify(clienteService,Mockito.times(1)).criarCliente(cliente);
+
+    }
+
+
+
+
 
 
 
