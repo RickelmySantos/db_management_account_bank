@@ -25,6 +25,11 @@ public class AgenciaBancariaService {
         return agenciaBancariaRepository.save(agenciaBancaria);
     }
 
+    public AgenciaBancaria buscarAgenciaPorId(Long agenciaId) {
+        return agenciaBancariaRepository.findById(agenciaId)
+                .orElseThrow(() -> new RuntimeException("Agência bancária não encontrada com o ID: " + agenciaId));
+    }
+
     public List<AgenciaBancaria> listarAgencia(){
         return agenciaBancariaRepository.findAll();
     }
