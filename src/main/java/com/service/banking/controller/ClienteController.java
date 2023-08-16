@@ -18,12 +18,8 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<?> criarCliente(@RequestBody Cliente cliente) {
-        try {
             Cliente cliente1 = clienteService.criarCliente(cliente);
             return ResponseEntity.status(HttpStatus.CREATED).body("Cliente criado com sucesso");
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
     }
 
     @PutMapping

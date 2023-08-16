@@ -17,6 +17,10 @@ public class ClienteService {
     public Cliente criarCliente(Cliente cliente){
         if(clienteRepository.existsByEmail(cliente.getEmail())){
             throw new RuntimeException("Já existe um cliente com esse email!");
+        } if (cliente.getNome() == null){
+            throw  new RuntimeException("campo nome não pode está em branco!");
+        }if (cliente.getSobreNome() == null){
+            throw new RuntimeException("Campo sobrenome não pode está em branco!");
         }
         return clienteRepository.save(cliente);
     }
